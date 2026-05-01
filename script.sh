@@ -63,9 +63,16 @@ echo "================================================"
 echo "Начало установки"
 echo "================================================"
 
+export DEBIAN_FRONTEND=noninteractive
+
 apt update
-apt upgrade -y
-apt install -y nginx certbot ufw
+apt upgrade -y \
+  -o Dpkg::Options::="--force-confdef" \
+  -o Dpkg::Options::="--force-confold"
+
+apt install -y nginx certbot ufw curl \
+  -o Dpkg::Options::="--force-confdef" \
+  -o Dpkg::Options::="--force-confold"
 
 echo "================================================"
 echo "Настраиваем ufw"
